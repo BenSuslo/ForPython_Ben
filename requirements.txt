@@ -1,0 +1,11 @@
+# 命令freeze让pip将项目中当前安装的所有包的名称都写入到文件requirements.txt中。请打开文件requirements.txt，查看项目中安装的包及其版本
+asgiref==3.5.0
+dj-database-url==0.5.0
+dj-static==0.0.6
+Django==4.0.2
+django-bootstrap3==21.2
+gunicorn==20.1.0
+sqlparse==0.4.2
+static3==0.7.0
+tzdata==2021.5
+psycopg2>=2.6.1

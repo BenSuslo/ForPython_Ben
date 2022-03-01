@@ -1,0 +1,18 @@
+{% extends "learning_logs/base.html" %}
+{% load bootstrap3 %}
+{% block header %}
+  <h2>Log in to your account.</h2>
+{% endblock header %}
+{% block content %}
+  <!-- django-bootstrap3会自动管理表单错误 -->
+  <form method="post" action="{% url 'users:login' %}" class="form">
+    {% csrf_token %}
+    <!-- 添加了属性class="form"；然后使用下面模板标签来显示表单 -->
+    <!-- 下面的模板标签将Bootstrap样式规则应用于各个表单元素 -->
+    {% bootstrap_form form %}
+    {% buttons %}
+      <button name="submit" class="btn btn-primary">log in</button>
+    {% endbuttons %}
+    <input type="hidden" name="next" value="{% url 'learning_logs:index' %}"/>
+  </form>
+{% endblock content %}

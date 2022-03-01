@@ -1,0 +1,49 @@
+{% load bootstrap3 %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning Log</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+  </head>
+  <body>
+      <!--Static navbar-->
+      <!-- <nav>元素，表示页面的导航链接部分。对于这个元素内的所有内容，都将根据选择器（selector）navbar、navbar-default和navbar-static-top定义的Bootstrap样式规则来设置样式。选择器决定了特定样式规则将应用于页面上的哪些元素。 -->
+      <nav class="navbar navbar-default navbar-static-top">
+          <div class="container">
+              <div class="navbar-header">
+                  <!-- 按钮，它将在浏览器窗口太窄、无法水平显示整个导航栏时显示出来。如果用户单击这个按钮，将出现一个下拉列表，其中包含所有的导航元素。在用户缩小浏览器窗口或在屏幕较小的移动设备上显示网站时，collapse会使导航栏折叠起来 -->
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
+                  <!-- 在导航栏的最左边显示项目名，并将其设置为到主页的链接，因为它将出现在这个项目的每个页面中 -->
+                  <a class="navbar-brand" href="{% url 'learning_logs:index' %}">Learning Log</a>
+              </div>
+              <div id="navbar" class="navbar-collapse collapse">
+                  <!-- 导航栏其实就是一个以<ul>打头的列表，其中每个链接都是一个列表项（<li>） -->
+                  <ul class="nav navbar-nav">
+                      <li><a href="{% url 'learning_logs:topics' %}">Topics</a></li>
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                      {% if user.is_authenticated %}
+                        <li><a>Hello, {{ user.username }}.</a></li>
+                        <li><a href="{% url 'users:logout' %}">log out</a></li>
+                      {% else %}                        
+                        <li><a href="{% url 'users:register' %}">register</a></li>
+                        <li><a href="{% url 'users:login' %}">log in</a></li>
+                      {% endif %}
+                  </ul>
+              </div><!--/.nav-collapse-->
+          </div>
+      </nav>
+      <div class="container">
+        <!-- header块的内容告诉用户页面包含哪些信息以及用户可在页面上执行哪些操作；其class属性值page-header将一系列样式应用于这个块 -->
+        <div class="page-header">
+            {% block header %}{% endblock header %}
+        </div>
+        <div>
+            {% block content %}{% endblock content %}
+        </div>
+      </div><!--/container-->
+  </body>
+</html>

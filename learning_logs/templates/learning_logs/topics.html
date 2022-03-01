@@ -1,0 +1,24 @@
+<!-- 在标准HTML中，项目列表被称为无序列表，用标签<ul></ul>表示。 -->
+<!-- 要在模板中打印变量，需要将变量名用双花括号括起来 -->
+<!-- HTML标签<li></li>表示一个项目列表项，在标签对<ul></ul>内部，位于标签<li>和</li>之间的内容都是一个项目列表项。 -->
+<!-- 修改模板topics.html，让每个主题都链接到相应的网页 -->
+{% extends "learning_logs/base.html" %}
+{% block header %}
+  <h1>Topics</h1>
+{% endblock header %}
+{% block content %}
+  <ul>
+    {% for topic in topics %}
+      <li>
+        <h3>
+          <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
+        </h3>
+      </li>
+    {% empty %}
+      <li>No topics have been added yet.</li>
+    {% endfor %}
+  </ul>
+  <h3>
+    <a href="{% url 'learning_logs:new_topic' %}">Add a new topic</a>
+  </h3>
+{% endblock content %}

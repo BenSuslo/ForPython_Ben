@@ -1,0 +1,28 @@
+<!-- 在Django模板中，竖线（|）表示模板过滤器——对模板变量的值进行修改的函数。过滤器date: 'M d, Y H:i'以这样的格式显示时间戳：January 1, 2015 23:00。接下来的一行显示text的完整值，而不仅仅是entry的前50个字符。过滤器linebreaks将包含换行符的长条目转换为浏览器能够理解的格式，以免显示为一个不间断的文本块。 -->
+<!-- 使用Bootstrap面板（panel）来突出每个条目。面板是一个带预定义样式的div，非常适合用于显示主题的条目 -->
+{% extends 'learning_logs/base.html' %}
+{% block header %}
+  <h2>{{ topic }}</h2>
+{% endblock header %}
+{% block content %}
+  <p>
+    <a href="{% url 'learning_logs:new_entry' topic.id %}">add new entry</a>
+  </p>
+  {% for entry in entries %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3>
+          {{ entry.date_added|date:'M d, Y H:i'}}
+          <small>
+            <a href="{% url 'learning_logs:edit_entry' entry.id %}">edit entry</a>
+          </small>
+        </h3>
+      </div>
+      <div class="panel-body">
+        {{ entry.text|linebreaks}}
+      </div>
+    </div><!--panel-->
+  {% empty %}
+      There are no entries for this topic yet.
+  {% endfor %}
+{% endblock content %}
